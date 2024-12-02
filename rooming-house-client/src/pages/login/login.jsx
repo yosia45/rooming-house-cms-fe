@@ -58,6 +58,7 @@ export default function LoginPage() {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        form={form}
       >
         <Form.Item
           label="Email"
@@ -68,6 +69,7 @@ export default function LoginPage() {
               message: "Please input your email!",
             },
           ]}
+
         >
           <Input />
         </Form.Item>

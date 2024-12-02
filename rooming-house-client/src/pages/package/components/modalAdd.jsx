@@ -79,8 +79,8 @@ export default function ModalAddPackage({
   };
 
   useEffect(() => {
-    if (role === "owner"){
-        fetchRoomingHousesData();
+    if (role === "owner") {
+      fetchRoomingHousesData();
     }
   }, []);
 
@@ -89,7 +89,100 @@ export default function ModalAddPackage({
 
   return (
     <div>
-
+      <Modal open={isModalOpen} onCancel={handleCancel} footer={null}>
+        <Form
+          {...formItemLayout}
+          form={form}
+          name="add-package"
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "Please input the name!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Daily Price"
+            name="daily_price"
+            rules={[
+              {
+                required: true,
+                message: "Please input the daily price!",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Weekly Price"
+            name="weekly_price"
+            rules={[
+              {
+                required: true,
+                message: "Please input the weekly price!",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Monthly Price"
+            name="monthly_price"
+            rules={[
+              {
+                required: true,
+                message: "Please input the monthly price!",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            label="Annual Price"
+            name="annual_price"
+            rules={[
+              {
+                required: true,
+                message: "Please input the annual price!",
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          {role === "owner" ? (
+            <Form.Item
+              label="Rooming House"
+              name="rooming_house_id"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select the rooming house!",
+                },
+              ]}
+            >
+              <Select>
+                {roomingHouses.map((roomingHouse) => (
+                  <Select.Option key={roomingHouse.id} value={roomingHouse.id}>
+                    {roomingHouse.name}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          ) : null}
+          <Form.Item wrapperCol={{ offset: 6, span: 14 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
-  )
+  );
 }

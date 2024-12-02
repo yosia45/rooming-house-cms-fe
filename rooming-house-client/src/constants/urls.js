@@ -1,5 +1,5 @@
 const urls = {
-    BASE_URL: 'http://localhost:8080',
+    BASE_URL: process.env.REACT_APP_BASE_URL,
 }
 
 export default urls;

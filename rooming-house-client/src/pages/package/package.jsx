@@ -6,6 +6,9 @@ import Swal from "sweetalert2";
 import urls from "../../constants/urls";
 import Navbar from "../../components/navbar/navbar";
 import Sidebar from "../../components/sidebar/sidebar";
+import ModalAddPackage from "./components/modalAdd";
+import ModalPackageDetail from "./components/modalDetail";
+import ModalEditPackage from "./components/modalEdit";
 
 export default function PackagePage() {
   const [packages, setPackages] = useState([]);
@@ -113,10 +116,10 @@ export default function PackagePage() {
     id: pricingPackage.id,
     name: pricingPackage.name,
     roomingHouse: pricingPackage.rooming_house?.name || "N/A",
-    Daily: pricingPackage.prices.Daily,
-    Weekly: pricingPackage.prices.Weekly,
-    Monthly: pricingPackage.prices.Monthly,
-    Annually: pricingPackage.prices.Annually,
+    Daily: pricingPackage.prices.day,
+    Weekly: pricingPackage.prices.week,
+    Monthly: pricingPackage.prices.month,
+    Annually: pricingPackage.prices.year,
   }));
 
   const onChange = (pagination, filters, sorter, extra) => {
@@ -163,6 +166,22 @@ export default function PackagePage() {
               Add New
             </Button>
             <Table columns={columns} dataSource={data} onChange={onChange} />;
+            <ModalPackageDetail
+              isModalOpen={isViewModalOpen}
+              handleCancel={handleCloseModal}
+              data={selectedRecord}
+            />
+            <ModalAddPackage
+              isModalOpen={isAddModalOpen}
+              handleCancel={handleCloseModal}
+              onSuccess={handleOnSuccess}
+            />
+            <ModalEditPackage
+              isModalOpen={isEditModalOpen}
+              handleCancel={handleCloseModal}
+              data={selectedRecord}
+              onSuccess={handleOnSuccess}
+            />
           </Layout.Content>
         </Layout>
       </Layout>
