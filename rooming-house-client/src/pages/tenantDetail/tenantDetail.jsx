@@ -18,52 +18,54 @@ export default function TenantDetailPage() {
   const { BASE_URL } = urls;
 
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const items = [
     {
       key: "0",
       label: "General Information",
-      children: GeneralInformationTab(tenantDetail),
-    },
-    {
-      key: "2",
-      label: "Payment",
-      children: PaymentTab(tenantDetail),
-    },
-    {
-      key: "3",
-      label: "Transaction History",
-      children: TransactionTab(tenantDetail.transactions),
+      children: GeneralInformationTab(tenantDetail, "generalInformation"),
     },
   ];
 
-  if (tenantDetail.tenant_assists !== null) {
-    items.push({
-      key: "1",
-      label: "Assist",
-      // children: "No assist",
-    });
+  if (tenantDetail.is_tenant === true) {
+    items.push(
+      {
+        key: "1",
+        label: "Assist",
+        children: GeneralInformationTab(tenantDetail, "assistant"),
+      },
+      {
+        key: "2",
+        label: "Payment",
+        children: PaymentTab(tenantDetail),
+      },
+      {
+        key: "3",
+        label: "Transaction History",
+        children: TransactionTab(tenantDetail.transactions),
+      }
+    );
   }
 
-  useEffect(() => {
-    const fetchTenantDetail = async () => {
-      try {
-        const token = getCookie("token");
-        const response = await axios.get(`${BASE_URL}/tenants/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setTenantDetail(response.data);
-      } catch (error) {
-        setError(error.response.data.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchTenantDetail = async () => {
+    try {
+      const token = getCookie("token");
+      const response = await axios.get(`${BASE_URL}/tenants/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setTenantDetail(response.data);
+    } catch (error) {
+      setError(error.response.data.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchTenantDetail();
   }, [id]);
 

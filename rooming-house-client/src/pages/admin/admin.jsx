@@ -63,12 +63,14 @@ export default function AdminPage() {
     {
       title: "Rooming House",
       dataIndex: "roomingHouse",
-      filters: admins.map((admin) => {
-        return {
-          text: admin.rooming_house?.name,
-          value: admin.rooming_house?.name,
-        };
-      }),
+      filters: Array.from(
+        new Set(
+          admins.map((admin) => admin.rooming_house?.name)
+        )
+      ).map((name) => ({
+        text: name,
+        value: name,
+      })),
       filterMode: "tree",
       filterSearch: true,
       onFilter: (value, record) => {

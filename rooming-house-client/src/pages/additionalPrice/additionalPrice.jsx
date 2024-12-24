@@ -74,12 +74,14 @@ export default function AdditionalPricePage() {
     {
       title: "Rooming House",
       dataIndex: "roomingHouse",
-      filters: additionalPrices.map((additionalPrice) => {
-        return {
-          text: additionalPrice.rooming_house?.name,
-          value: additionalPrice.rooming_house?.name,
-        };
-      }),
+      filters: Array.from(
+        new Set(
+          additionalPrices.map((additionalPrice) => additionalPrice.rooming_house?.name)
+        )
+      ).map((name) => ({
+        text: name,
+        value: name,
+      })),
       filterMode: "tree",
       filterSearch: true,
       onFilter: (value, record) => {

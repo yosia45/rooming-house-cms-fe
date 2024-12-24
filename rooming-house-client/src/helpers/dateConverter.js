@@ -23,4 +23,16 @@ function convertDate(dateString) {
   return `${day} ${month} ${year}`;
 }
 
-export { convertDate };
+function convertToDate(day, month, year) {
+  const date = new Date(year, month - 1, day);
+
+  const formattedDate = date.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+
+  return formattedDate;
+}
+
+export { convertDate, convertToDate };

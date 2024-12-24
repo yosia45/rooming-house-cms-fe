@@ -10,6 +10,7 @@ import urls from "../../constants/urls";
 import Swal from "sweetalert2";
 import Navbar from "../../components/navbar/navbar";
 import Sidebar from "../../components/sidebar/sidebar";
+import uuidNIL from "../../constants/uuid";
 
 export default function RoomDetailPage() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function RoomDetailPage() {
       key: "2",
       label: "Tenant",
       children:
-        roomDetail.tenants == {} || roomDetail.tenants == null
+        roomDetail.tenants == {} || roomDetail.tenants == null || roomDetail.tenants.id === uuidNIL
           ? "No tenant"
           : TenantDetail(roomDetail.tenants),
     },

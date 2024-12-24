@@ -79,12 +79,14 @@ export default function SizePage() {
     {
       title: "Rooming House",
       dataIndex: "roomingHouse",
-      filters: sizes.map((size) => {
-        return {
-          text: size.rooming_house?.name,
-          value: size.rooming_house?.name,
-        };
-      }),
+      filters: Array.from(
+        new Set(
+          sizes.map((size) => size.rooming_house?.name)
+        )
+      ).map((name) => ({
+        text: name,
+        value: name,
+      })),
       filterMode: "tree",
       filterSearch: true,
       onFilter: (value, record) => {

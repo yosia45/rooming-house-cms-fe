@@ -9,6 +9,7 @@ import TenantPage from "../pages/tenant/tenant";
 import TenantDetailPage from "../pages/tenantDetail/tenantDetail";
 import DashboardPage from "../pages/dashboard/dashboard";
 import PackagePage from "../pages/package/package";
+import TransactionPage from "../pages/transaction/transaction";
 import NotFoundPage from "../pages/notFound/notFound";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/rooms/:id",
     element: <RoomDetailPage />,
+  },
+  {
+    path: "/transactions",
+    element: <TransactionPage />,
   },
   {
     path: "/additionals",

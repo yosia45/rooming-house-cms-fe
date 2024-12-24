@@ -74,12 +74,14 @@ export default function PackagePage() {
     {
       title: "Rooming House",
       dataIndex: "roomingHouse",
-      filters: packages.map((pricingPackage) => {
-        return {
-          text: pricingPackage.rooming_house?.name,
-          value: pricingPackage.rooming_house?.name,
-        };
-      }),
+      filters: Array.from(
+        new Set(
+          packages.map((pricingPackage) => pricingPackage.rooming_house?.name)
+        )
+      ).map((name) => ({
+        text: name,
+        value: name,
+      })),
       filterMode: "tree",
       filterSearch: true,
       onFilter: (value, record) => {

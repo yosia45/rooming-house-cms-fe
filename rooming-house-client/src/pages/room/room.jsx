@@ -8,6 +8,7 @@ import urls from "../../constants/urls";
 import Swal from "sweetalert2";
 import Navbar from "../../components/navbar/navbar";
 import Sidebar from "../../components/sidebar/sidebar";
+import uuidNIL from "../../constants/uuid";
 
 export default function RoomPage() {
   const [roomData, setRoomData] = useState([]);
@@ -40,6 +41,8 @@ export default function RoomPage() {
     fetchRoomData();
   }, []);
 
+  console.log(roomData);
+
   if (loading) return <Spin />;
   if (error) return Swal.fire("Error", error, "error");
 
@@ -51,7 +54,7 @@ export default function RoomPage() {
           <Sidebar />
           <Layout.Content>
             <h1>Room List</h1>
-            {roomData.map((room) => (
+            {roomData?.map((room) => (
               <Card
                 title={room.name}
                 style={{
@@ -59,12 +62,22 @@ export default function RoomPage() {
                 }}
                 onClick={() => navigate(`/rooms/${room.id}`)}
               >
-                <p>Status: {!room.tenants ? "Vacant" : "Occupied"}</p>
+                <p>
+                  Status: {room.tenants.id === uuidNIL ? "Vacant" : "Occupied"}
+                </p>
                 <p>Tenant: {room.tenants?.name || "-"}</p>
                 <p>
-                  Start Date: {convertDate(room.tenants?.start_date) || "-"}
+                  Start Date:{" "}
+                  {room.tenants?.start_date
+                    ? convertDate(room.tenants?.start_date) || "-"
+                    : "-"}
                 </p>
-                <p>End Date: {convertDate(room.tenants?.end_date) || "-"}</p>
+                <p>
+                  End Date:{" "}
+                  {room.tenants?.end_date
+                    ? convertDate(room.tenants?.end_date) || "-"
+                    : "-"}
+                </p>
               </Card>
             ))}
           </Layout.Content>
